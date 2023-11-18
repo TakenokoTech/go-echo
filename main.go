@@ -2,9 +2,8 @@ package main
 
 import (
 	"github.com/labstack/echo/v4"
-	"go-echo/controller"
+	"go-echo/di"
 	"go-echo/utils"
-	"net/http"
 )
 
 func main() {
@@ -13,15 +12,7 @@ func main() {
 	e.HidePort = true
 	e.Use(utils.LoggerMiddleware())
 	e.Use(utils.RecoverMiddleware())
-	e.GET("/", getIndex)
-
-	v1 := e.Group("/v1")
-	controller.NewTest(v1)
-
+	di.Setup(e, e.Group("/v1"))
 	go utils.RoutingList(e)
 	e.Logger.Fatal(e.Start(":8080"))
-}
-
-func getIndex(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!")
 }
