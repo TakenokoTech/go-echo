@@ -17,6 +17,6 @@ func NewCoreRepository(db *gorm.DB) core.Repository {
 	}
 }
 
-func (c coreRepository) Transaction(fc func(tx *gorm.DB) error) error {
-	return c.db.Transaction(fc)
+func (c coreRepository) Transaction(cb core.TxCallback) error {
+	return c.db.Transaction(cb)
 }

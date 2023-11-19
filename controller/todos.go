@@ -11,9 +11,7 @@ type todosController struct {
 }
 
 func SetupTodosController(g *echo.Group, u todos.Repository) {
-	tc := todosController{
-		u: u,
-	}
+	tc := todosController{u: u}
 	g.GET("/todos", tc.getUser)
 	g.POST("/todos", tc.postUser)
 }

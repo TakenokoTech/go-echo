@@ -13,9 +13,7 @@ type testController struct {
 }
 
 func SetupTestController(g *echo.Group, u users.Repository) {
-	tc := testController{
-		u: u,
-	}
+	tc := testController{u: u}
 	g.GET("/test", tc.getTest)
 	g.GET("/test/:id", tc.getTest)
 	g.POST("/test/:id", tc.postTest)

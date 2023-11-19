@@ -28,9 +28,9 @@ func RecoverMiddleware() echo.MiddlewareFunc {
 		StackSize:           1 << 10, // 1 KB
 		DisableErrorHandler: true,
 		DisableStackAll:     true,
-		DisablePrintStack:   true,
-		LogLevel:            log.ERROR,
-		LogErrorFunc:        nil,
+		//DisablePrintStack:   true,
+		LogLevel:     log.ERROR,
+		LogErrorFunc: nil,
 	})
 }
 
