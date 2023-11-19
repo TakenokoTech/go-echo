@@ -40,9 +40,10 @@ func RoutingList(e *echo.Echo) {
 	fmt.Println("[Route]")
 	routes := e.Routes()
 	sort.Slice(routes, func(i, j int) bool {
-		a := routes[i].Path < routes[j].Path
-		b := routes[i].Method > routes[j].Method
-		return a && b
+		return routes[i].Path < routes[j].Path
+	})
+	sort.Slice(routes, func(i, j int) bool {
+		return routes[i].Method < routes[j].Method
 	})
 	for _, route := range routes {
 		fmt.Printf("Method: %s, Path: %s\n", route.Method, route.Path)
