@@ -3,6 +3,7 @@ package utils
 import (
 	"database/sql"
 	"github.com/go-sql-driver/mysql"
+	"gorm.io/gorm"
 	"os"
 	"time"
 )
@@ -27,4 +28,12 @@ func ConnectSQL() *sql.DB {
 		panic(err)
 	}
 	return db
+}
+
+func GetTransaction(db *gorm.DB, tx *gorm.DB) *gorm.DB {
+	if tx != nil {
+		return tx
+	} else {
+		return db
+	}
 }

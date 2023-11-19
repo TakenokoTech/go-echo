@@ -2,6 +2,7 @@ package repository
 
 import (
 	"go-echo/domain/users"
+	"go-echo/utils"
 	"gorm.io/gorm"
 )
 
@@ -17,16 +18,24 @@ func NewUsersRepository(db *gorm.DB) users.Repository {
 	}
 }
 
-func (u usersRepository) SelectAll() (user []users.User) {
-	u.db.Find(&user)
+func (u usersRepository) SelectAll() (users []users.User) {
+	utils.
+		GetTransaction(u.db, nil).
+		Find(&users)
 	return
 }
 
 func (u usersRepository) SelectById(id string) (user users.User) {
-	u.db.Where("id = ?", id).First(&user)
+	utils.
+		GetTransaction(u.db, nil).
+		Where("id = ?", id).
+		First(&user)
 	return
 }
 
-func (u usersRepository) Insert(user users.User) {
-	u.db.Select("username").Create(&user)
+func (u usersRepository) Insert(tx *gorm.DB, user users.User) {
+	utils.
+		GetTransaction(u.db, tx).
+		Select("username").
+		Create(&user)
 }

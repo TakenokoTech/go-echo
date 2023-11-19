@@ -1,7 +1,9 @@
 package users
 
+import "gorm.io/gorm"
+
 type Repository interface {
-	SelectAll() (user []User)
+	SelectAll() (users []User)
 	SelectById(id string) (user User)
-	Insert(user User)
+	Insert(tx *gorm.DB, user User)
 }
